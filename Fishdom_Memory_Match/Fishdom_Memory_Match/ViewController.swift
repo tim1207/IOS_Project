@@ -10,7 +10,8 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    var game = MatchingGame()
+    lazy var game = MatchingGame(numberOfPairsOfCards: (cardButtons.count+1)/2)
+    //i.e. game will be initialized when someone try to use it but lazy variable cannot have didSet!
     
     var flipCount:Int = 0{
         didSet{//只要變動就會輸出
@@ -18,9 +19,13 @@ class ViewController: UIViewController {
         }
     }
 
-    
     @IBOutlet weak var flipLabel: UILabel!
-    var emojiChoices = ["🙂" , "🤪", "🥲", "🤣", "🙂" , "🤪", "🥲", "🤣","😍" , "🥶", "☹️", "😡", "😍" , "🥶", "☹️", "😡"]
+    
+    var emojiChoices = ["🙂" , "🤪", "🥲", "🤣", "😍" , "🥶", "☹️", "😡",]
+    
+//    var emoji:Dictionary<Int,String>
+//    var emoji=Dictionary<Int,String>
+    var emojiDictionary = [Int:String]()
     
     @IBOutlet var cardButtons: [UIButton]!
     
@@ -29,39 +34,39 @@ class ViewController: UIViewController {
     @IBAction func flipCount(_ sender: UIButton) {
         if let cardNumber = cardButtons.firstIndex(of: sender)
         { // sender 是點到的牌
-            print("cardNumber = \(String(describing : cardNumber))") // is for check
-            //        emojiChoices[cardNumber]
-            if sender.currentTitle == emojiChoices[cardNumber]{
-                sender.setTitle("", for: UIControl.State.normal)
-                sender.backgroundColor = #colorLiteral(red: 0.7232089043, green: 0.2321962714, blue: 0.3705306053, alpha: 1)
-            }else{
-                sender.setTitle(emojiChoices[cardNumber], for: UIControl.State.normal)
-                sender.backgroundColor = #colorLiteral(red: 0.9405021667, green: 0.5444033742, blue: 0.3641401529, alpha: 1)
-                // #colorLiteral(red: 1, green: 0.5, blue: 1, alpha: 1)
-            }
-            flipCount += 1
-            // flipLabel.text = "Flips:\(flipCount)" 將由didSet直接變動處理
-        }
-
-
-        
-    }
-    //bad smell should delect connection
-    /*
-    @IBAction func touchCard(_ sender: UIButton) {
-        if sender.currentTitle == "🙂"{
-            sender.setTitle("", for: UIControl.State.normal)
-            sender.backgroundColor = #colorLiteral(red: 0.7232089043, green: 0.2321962714, blue: 0.3705306053, alpha: 1)
+            game.chooseCard(at: cardNumber)
+            updateViewFromModel()
+                        // flipLabel.text = "Flips:\(flipCount)" 將由didSet直接變動處理
         }else{
-            sender.setTitle("🙂", for: UIControl.State.normal)
-            sender.backgroundColor = #colorLiteral(red: 0.9405021667, green: 0.5444033742, blue: 0.3641401529, alpha: 1)
-            // #colorLiteral(red: 1, green: 0.5, blue: 1, alpha: 1)
+            print("not in collection")
         }
         flipCount += 1
-        // flipLabel.text = "Flips:\(flipCount)" 將由didSet直接變動處理
-    
+
     }
-    */
+    
+    func updateViewFromModel(){
+        for index in cardButtons.indices{
+            let button = cardButtons[index]
+            let card = game.cards[index]
+            if card.isFaceUp{
+                button.setTitle(getEmoji(for: card), for: UIControl.State.normal)
+                button.backgroundColor = #colorLiteral(red: 0.7232089043, green: 0.2321962714, blue: 0.3705306053, alpha: 1)
+                // #colorLiteral(red: 1, green: 0.5, blue: 1, alpha: 1)
+            }else{
+                button.setTitle("", for: UIControl.State.normal)
+                button.backgroundColor = card.isMatched ? #colorLiteral(red: 0.9999999404, green: 1, blue: 0.9999999404, alpha: 0.5) : #colorLiteral(red: 1, green: 0.6230834126, blue: 0.04164171964, alpha: 1)
+            }
+        }
+    }
+    
+    func getEmoji(for card: Card) -> String {
+        if emojiDictionary[card.identifier] == nil{
+            let randomIndex = Int(arc4random_uniform(UInt32(emojiChoices.count)))
+            emojiDictionary[card.identifier] = emojiChoices.remove(at: randomIndex)// remove same index
+            
+        }
+        return emojiDictionary[card.identifier] ??  "?"
+    }
 
     
     override func viewDidLoad() {
