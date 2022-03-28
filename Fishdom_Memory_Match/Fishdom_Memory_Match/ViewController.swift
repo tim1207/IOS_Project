@@ -54,7 +54,7 @@ class ViewController: UIViewController {
                 // #colorLiteral(red: 1, green: 0.5, blue: 1, alpha: 1)
             }else{
                 button.setTitle("", for: UIControl.State.normal)
-                button.backgroundColor = card.isMatched ? #colorLiteral(red: 0.9999999404, green: 1, blue: 0.9999999404, alpha: 0.5) : #colorLiteral(red: 1, green: 0.6230834126, blue: 0.04164171964, alpha: 1)
+                button.backgroundColor = card.isMatched ? #colorLiteral(red: 0.9999999404, green: 1, blue: 0.9999999404, alpha: 0.5) : #colorLiteral(red: 0.9405021667, green: 0.5444033742, blue: 0.3641401529, alpha: 1)
             }
         }
     }
@@ -75,7 +75,7 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         for i in cardButtons{
             i.setTitle("", for: UIControl.State.normal)
-            i.backgroundColor = #colorLiteral(red: 0.7232089043, green: 0.2321962714, blue: 0.3705306053, alpha: 1)
+            i.backgroundColor = #colorLiteral(red: 0.9405021667, green: 0.5444033742, blue: 0.3641401529, alpha: 1)
             // 初始化介面
         }
     }
