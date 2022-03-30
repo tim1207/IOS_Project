@@ -10,12 +10,18 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    lazy var game = MatchingGame(numberOfPairsOfCards: (cardButtons.count+1)/2)
+    lazy var game = MatchingGame(numberOfPairsOfCards: numberOfPairsOfCard)
     //i.e. game will be initialized when someone try to use it but lazy variable cannot have didSet!
+    var numberOfPairsOfCard : Int{
+        get{ // 只有get也可以直接 return
+            return(cardButtons.count+1)/2
+        }
+//        set
+    }
     
     var flipCount:Int = 0{
         didSet{//只要變動就會輸出
-            flipLabel.text = "Flips:\(flipCount)"
+            flipLabel.text = "Flips:\(game.flipCount)"
         }
     }
 
@@ -40,11 +46,22 @@ class ViewController: UIViewController {
         }else{
             print("not in collection")
         }
-        flipCount += 1
 
     }
     
+    @IBAction func flipall(_ sender: Any) {
+        game.flip()
+        updateViewFromModel()
+    }
+    
+    @IBAction func resetCard(_ sender: Any) {
+        game = MatchingGame(numberOfPairsOfCards: numberOfPairsOfCard)
+        emojiChoices = ["🙂" , "🤪", "🥲", "🤣", "😍" , "🥶", "☹️", "😡",]
+        updateViewFromModel()
+        
+    }
     func updateViewFromModel(){
+        flipLabel.text = "Flips:\(game.flipCount)"
         for index in cardButtons.indices{
             let button = cardButtons[index]
             let card = game.cards[index]
@@ -52,9 +69,15 @@ class ViewController: UIViewController {
                 button.setTitle(getEmoji(for: card), for: UIControl.State.normal)
                 button.backgroundColor = #colorLiteral(red: 0.7232089043, green: 0.2321962714, blue: 0.3705306053, alpha: 1)
                 // #colorLiteral(red: 1, green: 0.5, blue: 1, alpha: 1)
-            }else{
-                button.setTitle("", for: UIControl.State.normal)
-                button.backgroundColor = card.isMatched ? #colorLiteral(red: 0.9999999404, green: 1, blue: 0.9999999404, alpha: 0.5) : #colorLiteral(red: 0.9405021667, green: 0.5444033742, blue: 0.3641401529, alpha: 1)
+            }else {
+                    if card.isMatched{
+                    button.setTitle(getEmoji(for: card), for: UIControl.State.normal)
+                    button.backgroundColor = #colorLiteral(red: 0.9999999404, green: 1, blue: 0.9999999404, alpha: 0.5)
+                }
+                else{
+                    button.setTitle("", for: UIControl.State.normal)
+                    button.backgroundColor = #colorLiteral(red: 0.9405021667, green: 0.5444033742, blue: 0.3641401529, alpha: 1)
+                }
             }
         }
     }
@@ -71,13 +94,6 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        view.backgroundColor = #colorLiteral(red: 0.9769824147, green: 0.9301447868, blue: 0.4098855853, alpha: 1)
-        // Do any additional setup after loading the view.
-        for i in cardButtons{
-            i.setTitle("", for: UIControl.State.normal)
-            i.backgroundColor = #colorLiteral(red: 0.9405021667, green: 0.5444033742, blue: 0.3641401529, alpha: 1)
-            // 初始化介面
-        }
     }
 
 

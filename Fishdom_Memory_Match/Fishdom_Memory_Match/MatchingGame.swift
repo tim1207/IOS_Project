@@ -18,41 +18,72 @@ class MatchingGame{
 //    四種都可以
 
     var cards = [Card]()
-    
-    var indexOfOneAndOnlyFaceUpCard:Int? // optional Int
+    var flipCount:Int = 0
+    var flipUp:Bool = false
+    var indexOfOneAndOnlyFaceUpCard:Int?{
+        get{
+            var foundIndex:Int?
+            for index in cards.indices {
+                if cards[index].isFaceUp{
+                    if foundIndex == nil {
+                        foundIndex = index
+                    }
+                    else{
+                        return nil
+                    }
+                }
+            }
+            return foundIndex
+        }
+        set{
+
+            for index in cards.indices {
+                cards[index].isFaceUp = (index == newValue)
+            }
+            
+        }
+    }
     
     func chooseCard(at index : Int){
         if !cards[index].isMatched{
-            
+            flipCount += 1
             if let matchIndex=indexOfOneAndOnlyFaceUpCard, matchIndex != index{// , = and
                     
                 if cards[matchIndex].identifier == cards[index].identifier{
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
+                    cards[index].isFaceUp = true
+                    flipCount -= 1
                 }//matched
-                cards[index].isFaceUp = true
-                indexOfOneAndOnlyFaceUpCard = nil
+                
+                indexOfOneAndOnlyFaceUpCard = index
             }// has another previous card face up
             else if let matchIndex=indexOfOneAndOnlyFaceUpCard, matchIndex == index{// , = and
-                cards[index].isFaceUp = false
+
                 indexOfOneAndOnlyFaceUpCard = nil
             }
             else{//no cards face up or 2 cards are face up
-                for flipDownIndex in cards.indices{
-                    if cards[flipDownIndex].isMatched != true{
-                        cards[flipDownIndex].isFaceUp = false
-                    }
-                }//all cards set back to face down
-                cards[index].isFaceUp = true
                 indexOfOneAndOnlyFaceUpCard = index
+                
             }
             
         }
 
     }
-    
+        
+    func flip(){
+        flipCount = 0
+        flipUp = !flipUp
+        for index in cards.indices {
+            cards[index].isFaceUp = flipUp
+        }
+    }
     init(numberOfPairsOfCards: Int){
+        cards .removeAll()
+        flipCount = 0
+        flipUp = false
         for _ in 1...numberOfPairsOfCards {
+            
             let card = Card()
             /* 同下一組
             cards.append(card)
@@ -69,6 +100,7 @@ class MatchingGame{
             cards += [card,card]
             
         }
+        cards.shuffle()
         // this is a struct
     }
 
