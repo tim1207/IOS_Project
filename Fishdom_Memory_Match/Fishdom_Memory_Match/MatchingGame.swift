@@ -17,14 +17,29 @@ class MatchingGame{
 //    var cards: Array<Card> = Array()
 //    四種都可以
 
-    var cards = [Card]()
-    var flipCount:Int = 0
-    var flipUp:Bool = false
-    var indexOfOneAndOnlyFaceUpCard:Int?{
+    private (set)var cards = [Card]()
+    private (set)var flipCount:Int = 0
+    private (set)var score:Int = 10
+    private var flipUp:Bool = false
+    private (set)var theme:String = "face"
+    var emojiDictionary = [Int:String]()
+    //    var emoji:Dictionary<Int,String>
+    //    var emoji=Dictionary<Int,String>
+    //    var emojiDictionary = [Int:String]()
+
+    let themeEmoji = [
+        
+        "face": ["🙂" , "🤪", "🥲", "🤣", "😍" , "🥶", "☹️", "😡"],
+        "animal":["🐶" , "🐱", "🐭", "🐹", "🐰" , "🦊", "🐻", "🐼"],
+        "ball" :["⚽️" , "🏀", "🏈", "⚾️", "🥎" , "🎾", "🏐", "🏉"],
+        "number" :["1️⃣" , "2️⃣", "3️⃣", "4️⃣", "5️⃣" , "6️⃣", "7️⃣", "8️⃣"]
+    ]
+    var emoji:[String]? = []
+    private var indexOfOneAndOnlyFaceUpCard:Int?{
         get{
             var foundIndex:Int?
             for index in cards.indices {
-                if cards[index].isFaceUp{
+                if cards[index].isFaceUp {
                     if foundIndex == nil {
                         foundIndex = index
                     }
@@ -48,39 +63,64 @@ class MatchingGame{
         if !cards[index].isMatched{
             flipCount += 1
             if let matchIndex=indexOfOneAndOnlyFaceUpCard, matchIndex != index{// , = and
-                    
+                
+                
                 if cards[matchIndex].identifier == cards[index].identifier{
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
-                    cards[index].isFaceUp = true
+                    
                     flipCount -= 1
+                    score = score + 30
                 }//matched
-                
-                indexOfOneAndOnlyFaceUpCard = index
+                else{
+                    score -= 10
+                }
+                cards[index].isFaceUp = true
+//                indexOfOneAndOnlyFaceUpCard = index
             }// has another previous card face up
-            else if let matchIndex=indexOfOneAndOnlyFaceUpCard, matchIndex == index{// , = and
-
+            
+            else if let matchIndex=indexOfOneAndOnlyFaceUpCard, matchIndex == index{
                 indexOfOneAndOnlyFaceUpCard = nil
-            }
+            }//翻同一張牌
+            
             else{//no cards face up or 2 cards are face up
                 indexOfOneAndOnlyFaceUpCard = index
                 
             }
-            
+            // TODO
         }
 
     }
+    
+    private func randomTheme(){
+        let index: Int = Int(arc4random_uniform(UInt32(themeEmoji.count)))
+        theme = Array(themeEmoji.keys)[index]
+        emoji = themeEmoji[theme]
+    }
         
     func flip(){
-        flipCount = 0
         flipUp = !flipUp
         for index in cards.indices {
             cards[index].isFaceUp = flipUp
         }
+        score -= 1000
     }
+    
+    func getEmoji(for card: Card) -> String {
+        if emojiDictionary[card.identifier] == nil, emoji!.count > 0{
+//            let randomIndex = Int(arc4random_uniform(UInt32(game.emoji!.count)))
+            let randomIndex = emoji!.count.arc4random
+            emojiDictionary[card.identifier] = emoji?.remove(at: randomIndex)// remove same index
+            
+        }
+        return emojiDictionary[card.identifier] ??  "?"
+    }
+    
     init(numberOfPairsOfCards: Int){
+        randomTheme()
         cards .removeAll()
         flipCount = 0
+        score = 0
         flipUp = false
         for _ in 1...numberOfPairsOfCards {
             
