@@ -9,214 +9,190 @@ import UIKit
 
 class ViewController: UIViewController {
 
-    @IBOutlet weak var calculatorWorkings: UILabel!
-        @IBOutlet weak var calculatorResults: UILabel!
+    
+    
+    @IBOutlet weak var equalButton: UIButton!
+    @IBOutlet weak var decimalPointButton: UIButton!
+    @IBOutlet var numberButtons: [UIButton]!
+    
+    @IBOutlet var operateButtons: [UIButton]!
+    @IBOutlet weak var textLabel: UILabel!
+    
+    var output: Double = 0.0
+    var equation: String = ""
+    var decimal: Bool = false
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        var workings:String = ""
+        textLabel.text = "0"
         
-        override func viewDidLoad()
-        {
-            super.viewDidLoad()
-            clearAll()
+        for i in 0...9{
+            setCornerRadius(button: numberButtons[i])
         }
         
-        func clearAll()
-        {
-            workings = ""
-            calculatorWorkings.text = ""
-            calculatorResults.text = ""
+        for i in 0...6{
+            setCornerRadius(button: operateButtons[i])
         }
+        
+        setCornerRadius(button: decimalPointButton)
+        setCornerRadius(button: equalButton)
+    }
+    
+    func setCornerRadius(button: UIButton){
+        button.clipsToBounds = true
+        button.layer.cornerRadius = button.bounds.height*0.5
+    }
+    
+    
+    @IBAction func numberButtonPress(_ sender: UIButton) {
+        let inputNumber = sender.tag
+        
+        if equation.last == "."{
+            decimal = true
+        }
+        
+        if textLabel.text == "0"{
+            textLabel.text = String(inputNumber)
+            equation += String(inputNumber)
+        }else{
+            textLabel.text! += String(inputNumber)
+            equation += String(inputNumber)
+        }
+    }
+    
 
-        @IBAction func equalsTap(_ sender: Any)
-        {
-            if(validInput())
-            {
-                let checkedWorkingsForPercent = workings.replacingOccurrences(of: "%", with: "*0.01")
-                let expression = NSExpression(format: checkedWorkingsForPercent)
-                let result = expression.expressionValue(with: nil, context: nil) as! Double
-                let resultString = formatResult(result: result)
-                calculatorResults.text = resultString
-            }
-            else
-            {
-                let alert = UIAlertController(
-                    title: "Invalid Input",
-                    message: "Calculator unable to do math based on input",
-                    preferredStyle: .alert)
-                alert.addAction(UIAlertAction(title: "Okay", style: .default))
-                self.present(alert, animated: true, completion: nil)
+    @IBAction func operateButtonPress(_ sender: UIButton) {
+        let origText = textLabel.text
+        textLabel.text  = ""
+        
+//        print(equation)
+        if equation == ""{
+            equation = "0.0"
+        }else {
+            if decimal == false{
+                equation += ".0"
             }
         }
         
-        func validInput() ->Bool
-        {
-            var count = 0
-            var funcCharIndexes = [Int]()
+        
+        switch sender.tag{
             
-            for char in workings
-            {
-                if(specialCharacter(char: char))
-                {
-                    funcCharIndexes.append(count)
+        // AC
+        case 0:
+            textLabel.text = "0"
+            
+            equation = ""
+        
+        // +/-
+        case 1:
+            if let origText = origText{
+                if origText.contains("-"){
+                    textLabel.text = origText.replacingOccurrences(of: "-", with: "")
+                }else if origText == "0"{
+                    textLabel.text = "0"
+                }else if origText != ""{
+                  textLabel.text = "-" + origText
                 }
-                count += 1
             }
             
-            var previous: Int = -1
+            equation +=  "*-1"
             
-            for index in funcCharIndexes
-            {
-                if(index == 0)
-                {
-                    return false
-                }
-                
-                if(index == workings.count - 1)
-                {
-                    return false
-                }
-                
-                if (previous != -1)
-                {
-                    if(index - previous == 1)
-                    {
-                        return false
+        // %
+        case 2:
+            equation += "/100"
+            
+            if let origText = origText {
+                var outputText = origText
+                if origText.contains("."){
+                    var distance = outputText.distance(from: outputText.startIndex, to: outputText.firstIndex(of: ".")!)
+                    while  distance <= 3{
+                        outputText = "0" + outputText
+                        distance += 1
                     }
+                    let decimalIndex = outputText.firstIndex(of: ".")
+                    outputText.remove(at: decimalIndex!)
+                    outputText.insert(".", at: origText.index(decimalIndex!, offsetBy: -2))
+                }else{
+                    while outputText.count < 3{
+                        outputText = "0" + outputText
+                    }
+                    outputText.insert(".", at: outputText.index(outputText.endIndex, offsetBy: -2))
                 }
-                previous = index
+                
+                textLabel.text = setStringFormat(output: Double(outputText)!, decimal: 7 )
             }
             
-            return true
+        
+        // /
+        case 3:
+            equation += "/"
+            
+            
+        // *
+        case 4:
+        
+            equation += "*"
+        // -
+        case 5:
+            equation += "-"
+            
+        // +
+        case 6:
+            equation += "+"
+       
+        default:
+            textLabel.text = "Warning!!!"
+            break
         }
         
-        func specialCharacter (char: Character) -> Bool
-        {
-            if(char == "*")
-            {
-                return true
+        decimal = false
+        
+        
+    }
+    
+    
+    
+    @IBAction func pressDecimalPoint(_ sender: UIButton) {
+        let origText = textLabel.text
+        
+        if let origText = origText {
+            if !origText.contains("."){
+                equation += "."
+                textLabel.text! += "."
+                decimal = true
             }
-            if(char == "/")
-            {
-                return true
-            }
-            if(char == "+")
-            {
-                return true
-            }
-            return false
         }
         
-        func formatResult(result: Double) -> String
-        {
-            if(result.truncatingRemainder(dividingBy: 1) == 0)
-            {
-                return String(format: "%.0f", result)
-            }
-            else
-            {
-                return String(format: "%.2f", result)
-            }
+    }
+    
+    
+    
+    
+    @IBAction func pressEqualButton(_ sender: UIButton) {
+        
+        if decimal == false{
+            equation += ".0"
         }
         
-        @IBAction func allClearTap(_ sender: Any)
-        {
-            clearAll()
-        }
+        let expression = NSExpression(format: equation)
+        output = expression.expressionValue(with: nil, context: nil) as! Double
+    
         
-//        @IBAction func backTap(_ sender: Any)
-//        {
-//            if(!workings.isEmpty)
-//            {
-//                workings.removeLast()
-//                calculatorWorkings.text = workings
-//            }
-//        }
-        
-        func addToWorkings(value: String)
-        {
-            workings = workings + value
-            calculatorWorkings.text = workings
+        textLabel.text = setStringFormat(output: output, decimal: 7 )
+        print(equation)
+        print(output)
+        equation = String(output)
+        decimal = true
+    }
+    
+    func setStringFormat(output:Double, decimal:Int) -> String{
+        if output.truncatingRemainder(dividingBy: 1.0) == 0{
+            return String(format: "%.0f", output)
         }
+        let numOfDigit = pow(10.0, Double(decimal))
+        return String((output * numOfDigit).rounded(.toNearestOrAwayFromZero)/numOfDigit)
         
-        @IBAction func percentTap(_ sender: Any)
-        {
-            addToWorkings(value: "%")
-        }
-        
-        @IBAction func divideTap(_ sender: Any)
-        {
-            addToWorkings(value: "/")
-        }
-        
-        @IBAction func timesTap(_ sender: Any)
-        {
-            addToWorkings(value: "*")
-        }
-        
-        @IBAction func minusTap(_ sender: Any)
-        {
-            addToWorkings(value: "-")
-        }
-        
-        @IBAction func plusTap(_ sender: Any)
-        {
-            addToWorkings(value: "+")
-        }
-        
-        @IBAction func decimalTap(_ sender: Any)
-        {
-            addToWorkings(value: ".")
-        }
-        
-        @IBAction func zeroTap(_ sender: Any)
-        {
-            addToWorkings(value: "0")
-        }
-        
-        @IBAction func oneTap(_ sender: Any)
-        {
-            addToWorkings(value: "1")
-        }
-        
-        @IBAction func twoTap(_ sender: Any)
-        {
-            addToWorkings(value: "2")
-        }
-        
-        @IBAction func threeTap(_ sender: Any)
-        {
-            addToWorkings(value: "3")
-        }
-        
-        @IBAction func fourTap(_ sender: Any)
-        {
-            addToWorkings(value: "4")
-        }
-        
-        @IBAction func fiveTap(_ sender: Any)
-        {
-            addToWorkings(value: "5")
-        }
-        
-        @IBAction func sixTap(_ sender: Any)
-        {
-            addToWorkings(value: "6")
-        }
-        
-        @IBAction func sevenTap(_ sender: Any)
-        {
-            addToWorkings(value: "7")
-        }
-        
-        @IBAction func eightTap(_ sender: Any)
-        {
-            addToWorkings(value: "8")
-        }
-        
-        @IBAction func nineTap(_ sender: Any)
-        {
-            addToWorkings(value: "9")
-        }
-
+    }
+    
 }
-

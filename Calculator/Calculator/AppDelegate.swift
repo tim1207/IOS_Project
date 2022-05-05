@@ -1,10 +1,9 @@
 //
-//  AppDelegate.swift
-//  simple-calcuator
+//  ViewController.swift
+//  Calculator
 //
 //  Created by 林峻霆 on 2022/3/21.
 //
-
 
 import UIKit
 

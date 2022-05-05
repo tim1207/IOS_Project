@@ -14,8 +14,7 @@
 		A80B2CA927E840E700AF60EB /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A80B2CA827E840E700AF60EB /* Assets.xcassets */; };
 		A80B2CAC27E840E700AF60EB /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A80B2CAA27E840E700AF60EB /* LaunchScreen.storyboard */; };
 		A80B2CB727E840E700AF60EB /* simple_calculatorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B2CB627E840E700AF60EB /* simple_calculatorTests.swift */; };
-		A80B2CC127E840E700AF60EB /* simple_calcuatorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B2CC027E840E700AF60EB /* simple_calcuatorUITests.swift */; };
-		A80B2CC327E840E700AF60EB /* simple_calcuatorUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A80B2CC227E840E700AF60EB /* simple_calcuatorUITestsLaunchTests.swift */; };
+		A838743E28153AA100A0CFF1 /* simple-calculatorUITests in Resources */ = {isa = PBXBuildFile; fileRef = A838743D28153AA100A0CFF1 /* simple-calculatorUITests */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,8 +46,7 @@
 		A80B2CB227E840E700AF60EB /* simple-calculatorTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "simple-calculatorTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A80B2CB627E840E700AF60EB /* simple_calculatorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = simple_calculatorTests.swift; sourceTree = "<group>"; };
 		A80B2CBC27E840E700AF60EB /* simple-calculatorUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "simple-calculatorUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		A80B2CC027E840E700AF60EB /* simple_calcuatorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = simple_calcuatorUITests.swift; sourceTree = "<group>"; };
-		A80B2CC227E840E700AF60EB /* simple_calcuatorUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = simple_calcuatorUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A838743D28153AA100A0CFF1 /* simple-calculatorUITests */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "simple-calculatorUITests"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,9 +77,9 @@
 		A80B2C9327E840E500AF60EB = {
 			isa = PBXGroup;
 			children = (
+				A838743D28153AA100A0CFF1 /* simple-calculatorUITests */,
 				A80B2C9E27E840E500AF60EB /* simple-calcuator */,
 				A80B2CB527E840E700AF60EB /* simple-calculatorTests */,
-				A80B2CBF27E840E700AF60EB /* simple-calcuatorUITests */,
 				A80B2C9D27E840E500AF60EB /* Products */,
 			);
 			sourceTree = "<group>";
@@ -116,15 +114,6 @@
 				A80B2CB627E840E700AF60EB /* simple_calculatorTests.swift */,
 			);
 			path = "simple-calculatorTests";
-			sourceTree = "<group>";
-		};
-		A80B2CBF27E840E700AF60EB /* simple-calcuatorUITests */ = {
-			isa = PBXGroup;
-			children = (
-				A80B2CC027E840E700AF60EB /* simple_calcuatorUITests.swift */,
-				A80B2CC227E840E700AF60EB /* simple_calcuatorUITestsLaunchTests.swift */,
-			);
-			path = "simple-calcuatorUITests";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -233,6 +222,7 @@
 			files = (
 				A80B2CAC27E840E700AF60EB /* LaunchScreen.storyboard in Resources */,
 				A80B2CA927E840E700AF60EB /* Assets.xcassets in Resources */,
+				A838743E28153AA100A0CFF1 /* simple-calculatorUITests in Resources */,
 				A80B2CA727E840E500AF60EB /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -276,8 +266,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A80B2CC127E840E700AF60EB /* simple_calcuatorUITests.swift in Sources */,
-				A80B2CC327E840E700AF60EB /* simple_calcuatorUITestsLaunchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

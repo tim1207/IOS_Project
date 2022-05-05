@@ -10,18 +10,11 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="simple_calcuator" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="simple_calculator" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="284-HB-Kmd">
-                                <rect key="frame" x="281" y="227" width="113" height="61"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="gvn-Bn-bte">
                                 <rect key="frame" x="33" y="343" width="60" height="60"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -44,7 +37,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="allClearTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="j3B-4h-pZJ"/>
+                                    <action selector="operateButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="CTh-lK-YDQ"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pku-7u-vTa">
@@ -68,6 +61,9 @@
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="operateButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="AVy-Ld-HZf"/>
+                                </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NBI-7i-lr1">
                                 <rect key="frame" x="206" y="343" width="60" height="60"/>
@@ -91,7 +87,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="percentTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="EKY-G3-c1r"/>
+                                    <action selector="operateButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="G3r-F4-DxK"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cEp-Fd-2bJ">
@@ -108,7 +104,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="divideTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eo7-HL-UP7"/>
+                                    <action selector="operateButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JmI-hU-eg4"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vqT-mT-dxh">
@@ -133,7 +129,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="sevenTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="JwC-Rq-GbC"/>
+                                    <action selector="numberButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tbf-Cc-68D"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F3A-ta-UT1">
@@ -158,7 +154,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="eightTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="SPP-Hc-H5S"/>
+                                    <action selector="numberButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Tvk-re-F6D"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Elw-Eo-6rZ">
@@ -183,7 +179,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="nineTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="1Qh-rM-isb"/>
+                                    <action selector="numberButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="yDB-Mp-asR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RlX-rw-m5r">
@@ -200,7 +196,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="timesTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Jwk-3s-4AN"/>
+                                    <action selector="operateButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="c9T-BQ-pTR"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YNO-kR-G7Q">
@@ -225,7 +221,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="fourTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Ygg-Ax-NPb"/>
+                                    <action selector="numberButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dhC-BL-AKA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="HNi-HB-hfr">
@@ -250,7 +246,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="fiveTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Diw-OA-Nph"/>
+                                    <action selector="numberButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Vyw-Hx-q1R"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="qAs-44-51d">
@@ -275,7 +271,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="sixTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7Ur-Ni-VGL"/>
+                                    <action selector="numberButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MuB-Kl-81i"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NvU-S1-Szc">
@@ -292,7 +288,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="minusTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="2Z4-n4-k6u"/>
+                                    <action selector="operateButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="mfn-xw-w5Y"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Etz-lb-afM">
@@ -317,7 +313,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="oneTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="lzA-x8-8Ao"/>
+                                    <action selector="numberButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="626-TU-lUd"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CRE-rF-GMB">
@@ -342,7 +338,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="twoTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="rFa-Vp-XKN"/>
+                                    <action selector="numberButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Adc-Mg-YuT"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Als-8b-mUT">
@@ -367,7 +363,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="threeTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BtZ-qm-WaU"/>
+                                    <action selector="numberButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="m8E-yH-ARp"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Piz-kk-joo">
@@ -384,7 +380,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="plusTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="DDW-im-B4t"/>
+                                    <action selector="operateButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Eom-Qm-Dxv"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xgc-s3-aYW">
@@ -409,7 +405,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="zeroTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hxz-AZ-40h"/>
+                                    <action selector="numberButtonPress:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GDA-Dp-FNA"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Xc9-Et-WZl">
@@ -434,7 +430,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="decimalTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="ikI-h3-ycD"/>
+                                    <action selector="pressDecimalPoint:" destination="BYZ-38-t0r" eventType="touchUpInside" id="7gb-mW-bqb"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="smB-Jb-ed4">
@@ -451,7 +447,7 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
-                                    <action selector="equalsTap:" destination="BYZ-38-t0r" eventType="touchUpInside" id="oAv-wW-fYf"/>
+                                    <action selector="pressEqualButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="55S-mZ-1CJ"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ogy-fI-zJW">
@@ -461,13 +457,40 @@
                                 <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="284-HB-Kmd">
+                                <rect key="frame" x="16" y="240" width="334" height="61"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </view>
                     <connections>
-                        <outlet property="calculatorResults" destination="284-HB-Kmd" id="f7C-l4-OHU"/>
-                        <outlet property="calculatorWorkings" destination="ogy-fI-zJW" id="Mk1-Dd-0Bq"/>
+                        <outlet property="decimalPointButton" destination="Xc9-Et-WZl" id="bSU-9e-dCm"/>
+                        <outlet property="equalButton" destination="smB-Jb-ed4" id="MVg-Ng-Kgb"/>
+                        <outlet property="textLabel" destination="284-HB-Kmd" id="7sX-WR-mVF"/>
+                        <outletCollection property="numberButtons" destination="Als-8b-mUT" collectionClass="NSMutableArray" id="1Qe-Hn-inl"/>
+                        <outletCollection property="operateButtons" destination="Piz-kk-joo" collectionClass="NSMutableArray" id="ejE-Nv-Fgd"/>
+                        <outletCollection property="numberButtons" destination="Xgc-s3-aYW" collectionClass="NSMutableArray" id="2zH-aT-Diq"/>
+                        <outletCollection property="numberButtons" destination="Etz-lb-afM" collectionClass="NSMutableArray" id="FQ3-76-Fa5"/>
+                        <outletCollection property="numberButtons" destination="CRE-rF-GMB" collectionClass="NSMutableArray" id="UQl-ym-usO"/>
+                        <outletCollection property="numberButtons" destination="Als-8b-mUT" collectionClass="NSMutableArray" id="PWi-AZ-H6J"/>
+                        <outletCollection property="numberButtons" destination="YNO-kR-G7Q" collectionClass="NSMutableArray" id="zxy-q8-noy"/>
+                        <outletCollection property="numberButtons" destination="HNi-HB-hfr" collectionClass="NSMutableArray" id="Vpc-L2-cuD"/>
+                        <outletCollection property="numberButtons" destination="qAs-44-51d" collectionClass="NSMutableArray" id="8vh-sh-Psg"/>
+                        <outletCollection property="numberButtons" destination="vqT-mT-dxh" collectionClass="NSMutableArray" id="Z4W-QR-24O"/>
+                        <outletCollection property="numberButtons" destination="F3A-ta-UT1" collectionClass="NSMutableArray" id="tBc-aH-Gfp"/>
+                        <outletCollection property="numberButtons" destination="Elw-Eo-6rZ" collectionClass="NSMutableArray" id="K6Z-hA-IqN"/>
+                        <outletCollection property="operateButtons" destination="gvn-Bn-bte" collectionClass="NSMutableArray" id="tXc-ZE-5En"/>
+                        <outletCollection property="operateButtons" destination="Pku-7u-vTa" collectionClass="NSMutableArray" id="wTd-zV-KNp"/>
+                        <outletCollection property="operateButtons" destination="NBI-7i-lr1" collectionClass="NSMutableArray" id="UTs-5B-lpe"/>
+                        <outletCollection property="operateButtons" destination="cEp-Fd-2bJ" collectionClass="NSMutableArray" id="0Go-5W-CP5"/>
+                        <outletCollection property="operateButtons" destination="RlX-rw-m5r" collectionClass="NSMutableArray" id="s33-0f-Wjh"/>
+                        <outletCollection property="operateButtons" destination="NvU-S1-Szc" collectionClass="NSMutableArray" id="sq8-ty-KUI"/>
+                        <outletCollection property="operateButtons" destination="Piz-kk-joo" collectionClass="NSMutableArray" id="vJ7-2c-QeD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

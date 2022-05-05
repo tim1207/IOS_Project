@@ -9,8 +9,8 @@
 import Foundation
 // class has inheritance is reference type
 
-
-class MatchingGame{
+// struct pass by value
+struct MatchingGame{
    
 //    var cards:[Card] = [Card]()
 //    var cards:[Card] = []
@@ -22,7 +22,9 @@ class MatchingGame{
     private (set)var score:Int = 10
     private var flipUp:Bool = false
     private (set)var theme:String = "face"
-    var emojiDictionary = [Int:String]()
+    var emojiDictionary = [Card:String]()
+    var emoji:[String]? = []
+    
     //    var emoji:Dictionary<Int,String>
     //    var emoji=Dictionary<Int,String>
     //    var emojiDictionary = [Int:String]()
@@ -34,7 +36,8 @@ class MatchingGame{
         "ball" :["⚽️" , "🏀", "🏈", "⚾️", "🥎" , "🎾", "🏐", "🏉"],
         "number" :["1️⃣" , "2️⃣", "3️⃣", "4️⃣", "5️⃣" , "6️⃣", "7️⃣", "8️⃣"]
     ]
-    var emoji:[String]? = []
+    
+    
     private var indexOfOneAndOnlyFaceUpCard:Int?{
         get{
             var foundIndex:Int?
@@ -59,16 +62,13 @@ class MatchingGame{
         }
     }
     
-    func chooseCard(at index : Int){
+    mutating func chooseCard(at index : Int){
         if !cards[index].isMatched{
             flipCount += 1
             if let matchIndex=indexOfOneAndOnlyFaceUpCard, matchIndex != index{// , = and
-                
-                
-                if cards[matchIndex].identifier == cards[index].identifier{
+                if cards[matchIndex] == cards[index]{
                     cards[matchIndex].isMatched = true
                     cards[index].isMatched = true
-                    
                     flipCount -= 1
                     score = score + 30
                 }//matched
@@ -85,20 +85,19 @@ class MatchingGame{
             
             else{//no cards face up or 2 cards are face up
                 indexOfOneAndOnlyFaceUpCard = index
-                
             }
-            // TODO
+            
         }
 
     }
     
-    private func randomTheme(){
+    private mutating  func randomTheme(){
         let index: Int = Int(arc4random_uniform(UInt32(themeEmoji.count)))
         theme = Array(themeEmoji.keys)[index]
         emoji = themeEmoji[theme]
     }
         
-    func flip(){
+    mutating func flip(){
         flipUp = !flipUp
         for index in cards.indices {
             cards[index].isFaceUp = flipUp
@@ -106,14 +105,14 @@ class MatchingGame{
         score -= 1000
     }
     
-    func getEmoji(for card: Card) -> String {
-        if emojiDictionary[card.identifier] == nil, emoji!.count > 0{
+    mutating func getEmoji(for card: Card) -> String {
+        if emojiDictionary[card] == nil, emoji!.count > 0{
 //            let randomIndex = Int(arc4random_uniform(UInt32(game.emoji!.count)))
             let randomIndex = emoji!.count.arc4random
-            emojiDictionary[card.identifier] = emoji?.remove(at: randomIndex)// remove same index
+            emojiDictionary[card] = emoji?.remove(at: randomIndex)// remove same index
             
         }
-        return emojiDictionary[card.identifier] ??  "?"
+        return emojiDictionary[card] ??  "?"
     }
     
     init(numberOfPairsOfCards: Int){

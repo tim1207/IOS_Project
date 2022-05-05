@@ -23,9 +23,8 @@ class ViewController: UIViewController {
     
     
     @IBOutlet weak var Theme: UILabel!
-    @IBOutlet weak var scoreLabel: UILabel!
     
-
+    @IBOutlet weak var scoreLabel: UILabel!
     
     @IBOutlet var cardButtons: [UIButton]!
     
@@ -53,6 +52,7 @@ class ViewController: UIViewController {
         updateViewFromModel()
         
     }
+    
     func updateViewFromModel(){
         flipLabel.text = "Flips:\(game.flipCount)"
         scoreLabel.text = "Score:\(game.score)"
